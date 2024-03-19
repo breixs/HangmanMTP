@@ -99,7 +99,7 @@ namespace HangmanMTP
         void MakeLable()
         {
             cuvant = getRandomWord();
-            //MessageBox.Show(cuvant);
+            MessageBox.Show(cuvant);
             char[] litere = cuvant.ToCharArray();
             int between = 330/litere.Length-1;
             for(int i=0; i<litere.Length; i++)
@@ -129,27 +129,41 @@ namespace HangmanMTP
 
         private void button1_Click(object sender, EventArgs e)
         {
-            char litera = textBox1.Text.ToLower().ToCharArray()[0];
-            if(!char.IsLetter(litera))
+            if (string.IsNullOrEmpty(textBox1.Text))
             {
                 MessageBox.Show("Nu s-a introdus nicio litera");
                 return;
             }
+            char litera = textBox1.Text.ToLower().ToCharArray()[0];
+            if(!char.IsLetter(litera))
+            {
+                MessageBox.Show("Nu s-a introdus nicio litera");
+                return ;
+            }
             if(cuvant.Contains(litera))
             {
                 char[] litere=cuvant.ToCharArray();
-                for(int i=0;i<litere.Length;i++)
+                for (int i = 0; i < litere.Length; i++)
                 {
                     if (litere[i] == litera)
-                        labels[i].Text = litera.ToString();             
+                        labels[i].Text = litera.ToString();
                 }
+                bool ok = true;
                 foreach(Label l in labels)
                 {
-                    if (l.Text == "_") return;
-                    MessageBox.Show("Ai Castigat! Felicitari!");
-                    //ResetGame();
-                    Application.Exit();
+                    if (l.Text == "_")
+                    {
+                        ok = false;
+                        break;
+                    }
                 }
+                if(ok)
+                {
+                    MessageBox.Show("Ai Castigat! Felicitari!");
+                    ResetGame();
+                    //Application.Exit();
+                }
+            
             }
             else
             {
@@ -160,8 +174,8 @@ namespace HangmanMTP
                 if(incercari==9)
                 {
                     MessageBox.Show("Ai ramas fara incercari! Cuvantul corect era: "+cuvant);
-                    //ResetGame();
-                    Application.Exit();
+                    ResetGame();
+                    //Application.Exit();
                 }
             }
 
@@ -189,7 +203,8 @@ namespace HangmanMTP
             if(textBox2.Text==cuvant)
             {
                 MessageBox.Show("Ai Castigat! Felicitari");
-                Application.Exit();
+                //Application.Exit();
+                ResetGame();
             }
             else
             {
@@ -199,8 +214,8 @@ namespace HangmanMTP
                 if (incercari == 9)
                 {
                     MessageBox.Show("Ai ramas fara incercari! Cuvantul corect era: " + cuvant);
-                    //ResetGame();
-                    Application.Exit();
+                    ResetGame();
+                    //Application.Exit();
                 }
             }
         }
