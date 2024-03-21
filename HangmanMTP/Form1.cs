@@ -101,7 +101,7 @@ namespace HangmanMTP
             cuvant = getRandomWord();
             MessageBox.Show(cuvant);
             char[] litere = cuvant.ToCharArray();
-            int between = 330/litere.Length-1;
+            int between = 330/litere.Length;
             for(int i=0; i<litere.Length; i++)
             {
                 labels.Add(new Label());
